@@ -1,0 +1,5 @@
+1. package.json안에 있는 라이브러리들 한번에 설치
+ - root디렉토리(서버): npm install
+ - client디렉토리(클라이언트): npm install
+
+2. node버전이 다를시 nvm이용
