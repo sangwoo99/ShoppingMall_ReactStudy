@@ -96,15 +96,23 @@ router.post('/products', (req, res) => {
 router.get('/product_by_id', (req, res) => {
 
   let type = req.query.type;
-  let productId = req.query.id;
+  let productIds = req.query.id;
 
+  if(type === 'array') {
+    let ids = req.query.id.split(','); // 여러개 들어온 상품 id를 쪼개서 배열로
+    productIds = ids.map(item => {
+      return item
+    });
+  }
+
+  console.log('productIds', productIds);
   // productId를 이용해서 DB에서 productId와 같은 상품의 정보를 가져온다.
 
-  Product.find({ _id: productId })
+  Product.find({ _id: { $in: productIds } }) // $in을 이용하면 배열을 넣어 각각 요소들에 해당하는 정보를 모두 가져옴 
     .populate('writer')
     .exec((err, product) => {
       if(err) return res.status(400).send(err)
-      return res.status(200).send({ success: true, product})
+      return res.status(200).send(product)
     })
 
 });
