@@ -106,7 +106,6 @@ export function removeCartItem(productId){
                 })
             })
             
-            console.log('response22', response);
             return response.data;
         });
 
